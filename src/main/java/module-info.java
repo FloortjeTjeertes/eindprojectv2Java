@@ -1,4 +1,4 @@
-module com.eindproject.v2.eindprojectv2 {
+module com.eindproject.v.eindprojectv {
     requires javafx.controls;
     requires javafx.fxml;
 

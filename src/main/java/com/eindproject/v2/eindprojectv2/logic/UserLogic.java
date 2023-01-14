@@ -54,7 +54,7 @@ public class UserLogic {
             }
 
         }
-    public void Update(User User) throws IOException{
+    public void Update(User User) {
         Main.dataBase.UpdateUser(User);
         }
     //todo serialising the database

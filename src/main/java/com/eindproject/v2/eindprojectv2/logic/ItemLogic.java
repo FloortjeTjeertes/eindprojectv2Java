@@ -4,13 +4,10 @@ import com.eindproject.v2.eindprojectv2.Main;
 import com.eindproject.v2.eindprojectv2.dal.DataBase;
 import com.eindproject.v2.eindprojectv2.model.*;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class ItemLogic {
     final DataBase dataBase;
@@ -34,9 +31,6 @@ public class ItemLogic {
                 update.add(item);
                 break;
             }
-        }
-        if(update.size()>1){
-            throw new Exception("something went wrong your id has multiple hits.");
         }
         Main.dataBase.UpdateItem(update.get(0));
 
@@ -64,9 +58,6 @@ public class ItemLogic {
                 break;
             }
         }
-        if(update.size()>1){
-            throw new Exception("something went wrong your id has multiple hits.");
-        }
         Main.dataBase.UpdateItem(update.get(0));
 
         return updateditem;
@@ -93,7 +84,7 @@ public class ItemLogic {
         return items.size();
     }
 
-    public void DeleteItem(double ID) throws Exception{
+    public void DeleteItem(double ID) {
         List<Item>  items  = GetItems();
         for (Item item : items) {
             if(item.getItemCode()==ID){
@@ -103,8 +94,8 @@ public class ItemLogic {
             }
         }
     }
-    public void AddItem(Item item) throws IOException{
-        int id =  item.getItemCode();
+    public void AddItem(Item item) {
+        int id;
         do {
             int itemamount =  GetAmountOfItems()+1;
             id = (int) (Math.random() * itemamount);
@@ -113,7 +104,7 @@ public class ItemLogic {
         item.setItemCode(id);
         Main.dataBase.AddItem(item);
     }
-    public void Update(Item item) throws IOException{
+    public void Update(Item item) {
         Main.dataBase.UpdateItem(item);
     }
 

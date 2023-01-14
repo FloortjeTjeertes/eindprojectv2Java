@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Author implements Serializable {
     final String firstname;
     final String lastname;
-    String prefix = null;
+    String prefix;
 
 
 

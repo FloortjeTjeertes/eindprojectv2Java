@@ -130,7 +130,7 @@ public class EditbookController {
        return validated;
    }
 
-   public void Submit() throws IOException {
+   public void Submit() {
        if (Edit) {
            if (ValiDateFields()) {
                System.out.println("submit " + itemToEdit.getTitle());

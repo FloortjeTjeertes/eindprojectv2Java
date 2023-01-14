@@ -75,14 +75,14 @@ public class EditUserController {
    private boolean ValiDateFields() {
        Boolean validated = true;
 
-       if (TextFieldFirstName.getText() == "") {
+       if (TextFieldFirstName.getText().equals("")) {
            TextFieldFirstName.setStyle("-fx-border-color:red");
            validated = false;
        } else {
            TextFieldFirstName.setStyle("-fx-border-color:grey");
 
        }
-       if (TextFieldLastName.getText() == "") {
+       if (TextFieldLastName.getText().equals("")) {
            TextFieldLastName.setStyle("-fx-border-color:red");
            validated = false;
 
@@ -96,14 +96,14 @@ public class EditUserController {
        } else {
            DatePickerBirthdate.setStyle("-fx-border-color:grey");
        }
-       if (TextFieldUserName.getText() == "") {
+       if (TextFieldUserName.getText().equals("")) {
            TextFieldUserName.setStyle("-fx-border-color:red");
            validated = false;
 
        } else {
            TextFieldUserName.setStyle("-fx-border-color:grey");
        }
-       if (TextFieldPassword.getText() == "") {
+       if (TextFieldPassword.getText().equals("")) {
            TextFieldPassword.setStyle("-fx-border-color:red");
            validated = false;
 
@@ -114,7 +114,7 @@ public class EditUserController {
        return validated;
    }
 
-   public void Submit() throws IOException {
+   public void Submit() {
        if (Edit) {
            if (ValiDateFields()) {
                System.out.println("submit " + userToEdit.getFirstName());

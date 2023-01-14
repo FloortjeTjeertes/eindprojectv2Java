@@ -11,11 +11,11 @@
         <fx:include  source="LendRecieve.fxml"/>
     </Tab>
     <Tab onSelectionChanged="#update" text="collection">
-        <fx:include source="Collection.fxml"/>
+        <fx:include fx:id="CollectionTab" source="Collection.fxml"/>
 
     </Tab>
     <Tab text="Members">
-        <fx:include  source="User.fxml"/>
+        <fx:include fx:id="MembersTab" source="User.fxml"/>
 
     </Tab>
 

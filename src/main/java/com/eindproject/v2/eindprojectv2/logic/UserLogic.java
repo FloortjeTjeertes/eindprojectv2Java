@@ -11,22 +11,20 @@ import java.util.List;
 public class UserLogic {
 
   //get all users
-    DataBase dataBase;
+  final DataBase dataBase;
     public UserLogic(){
         dataBase = new DataBase();
 
     }
     //get all users
     public List<User> GetUsers(){
-        List<User> Users = Main.dataBase.GetUsers();
-        return Users;
+        return Main.dataBase.GetUsers();
 
     }
     //get user whit filter
     public List<User> GetUsers(User UserToFilter){
-        List<User> items = Main.dataBase.GetUsers(UserToFilter);
 
-        return items;
+        return Main.dataBase.GetUsers(UserToFilter);
     }
     ///help methods
     public boolean CheckAvailableId(int id){

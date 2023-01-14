@@ -15,7 +15,7 @@ public class LoginController {
     @FXML TextField textFieldPassword;
     @FXML Text TextMessage;
 
-    DataBase dataBase = Main.dataBase;
+    final DataBase dataBase = Main.dataBase;
     @FXML
     private void CheckLogin() throws IOException {
         LoginLogic login = new LoginLogic();

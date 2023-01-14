@@ -10,30 +10,28 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<VBox alignment="CENTER_LEFT" prefHeight="297.0" prefWidth="498.0" spacing="20.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.eindproject.v2.eindprojectv2.LoginController">
+<VBox alignment="CENTER_LEFT" prefHeight="297.0" prefWidth="498.0" spacing="20.0" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml" fx:controller="com.eindproject.v2.eindprojectv2.LoginController">
    <padding>
-      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
    </padding>
-   <children>
-      <Label text="LOGIN" textFill="#6b6b6b75">
-         <font>
-            <Font size="28.0" />
-         </font>
-      </Label>
-      <TextField fx:id="textFieldUserName" promptText="Username" />
-      <PasswordField fx:id="textFieldPassword" promptText="Password" />
-      <FlowPane prefHeight="97.0" prefWidth="458.0">
-         <children>
-            <Button fx:id="ButonLogin" mnemonicParsing="false" onMouseClicked="#CheckLogin" prefHeight="39.0" prefWidth="97.0" text="login" />
-            <Text fx:id="TextMessage" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="337.8312797546387">
-               <FlowPane.margin>
-                  <Insets left="11.0" />
-               </FlowPane.margin>
-               <rotationAxis>
-                  <Point3D />
-               </rotationAxis>
-            </Text>
-         </children>
-      </FlowPane>
-   </children>
+   <Label text="LOGIN" textFill="#6b6b6b75">
+      <font>
+         <Font size="28.0"/>
+      </font>
+   </Label>
+   <TextField fx:id="textFieldUserName" promptText="Username"/>
+   <PasswordField fx:id="textFieldPassword" promptText="Password"/>
+   <FlowPane prefHeight="97.0" prefWidth="458.0">
+      <Button  mnemonicParsing="false" onMouseClicked="#CheckLogin" prefHeight="39.0"
+              prefWidth="97.0" text="login"/>
+      <Text fx:id="TextMessage" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="337.8312797546387">
+         <FlowPane.margin>
+            <Insets left="11.0"/>
+         </FlowPane.margin>
+         <rotationAxis>
+            <Point3D/>
+         </rotationAxis>
+      </Text>
+   </FlowPane>
 </VBox>

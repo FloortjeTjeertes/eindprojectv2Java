@@ -29,9 +29,9 @@ public class EditbookController {
    Text TextErrorMessage;
 
 
-   static public boolean Edit  = false; //status of screen. true means the screen is used to edit a item  false means it is used to create a new item.
+   static public boolean Edit  = false; //status of screen. true means the screen is used to edit an item  false means it is used to create a new item.
    static public Book itemToEdit;
-   ItemLogic itemLogic = new ItemLogic(Main.dataBase);
+   final ItemLogic itemLogic = new ItemLogic(Main.dataBase);
 
    @FXML
    public void initialize() {
@@ -43,7 +43,7 @@ public class EditbookController {
    }
 
    private Book FillBookCreate() {
-       int isbn = parseInt(TextFieldIsbn.getText());
+       @SuppressWarnings("DuplicatedCode") int isbn = parseInt(TextFieldIsbn.getText());
        String titel = TextFieldTitel.getText();
        String firstName = TextBoxFirstName.getText();
        String preFix = TextBoxPrefix.getText();
@@ -54,12 +54,11 @@ public class EditbookController {
        int id =0;
 
 
-       Book book = new Book(id, null, LocalDateTime.MIN, Lendstatus.No, isbn, author, titel);
-       return book;
+       return new Book(id, null, LocalDateTime.MIN, Lendstatus.No, isbn, author, titel);
    }
 
    private Book FillBookUpdate(Book update) {
-       int isbn = parseInt(TextFieldIsbn.getText());
+       @SuppressWarnings("DuplicatedCode") int isbn = parseInt(TextFieldIsbn.getText());
        String titel = TextFieldTitel.getText();
        String firstName = TextBoxFirstName.getText();
        String preFix = TextBoxPrefix.getText();
@@ -67,9 +66,8 @@ public class EditbookController {
 
        Author author = new Author(firstName, preFix, lastName);
 
-       Book book = new Book(update.getItemCode(), update.getLender(), update.getLendDate(), update.getLendstatus(),
+       return new Book(update.getItemCode(), update.getLender(), update.getLendDate(), update.getLendstatus(),
                isbn, author, titel);
-       return book;
    }
 
    private void FillFields(Book book) {
@@ -133,7 +131,7 @@ public class EditbookController {
    }
 
    public void Submit() throws IOException {
-       if (Edit == true) {
+       if (Edit) {
            if (ValiDateFields()) {
                System.out.println("submit " + itemToEdit.getTitle());
 
@@ -147,7 +145,7 @@ public class EditbookController {
                }
            }
        }
-       if (Edit == false) {
+       if (!Edit) {
            // FillBookCreate();
            if (ValiDateFields()) {
           Book newBook =FillBookCreate();

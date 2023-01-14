@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataBase implements Serializable {
-    List<User> userDatabase = new ArrayList<User>();
-    List<Item> itemDatabase = new ArrayList<Item>();
+    final List<User> userDatabase = new ArrayList<User>();
+    final List<Item> itemDatabase = new ArrayList<Item>();
     public DataBase() {
         AddUser(new User("floortje","test","Tjeertes","Floortje",0, LocalDate.now().plusDays(1))); //add user
         AddUser(new User("henkie","abcd123","geritsen","henk",1, LocalDate.now().plusDays(2))); //add user

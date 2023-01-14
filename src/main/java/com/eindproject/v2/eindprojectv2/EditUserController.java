@@ -26,13 +26,13 @@ public class EditUserController {
    TextField TextFieldPassword;
    @FXML
    Text TextErrorMessage;
-   static public Boolean Edit = false; //state of screen. true is edit mode false is create mode
+   static public Boolean Edit = false; //state of screen. true is edit-mode, false is create-mode
    static public User userToEdit; //the user to edit
-   UserLogic userLogic = new UserLogic();
+   final UserLogic userLogic = new UserLogic();
 
    @FXML
    public void initialize() {
-       if ( Edit== true) {
+       if (Edit) {
            FillFields(userToEdit);
            TextFieldUserName.setDisable(true);
            TextFieldPassword.setDisable(true);
@@ -49,8 +49,7 @@ public class EditUserController {
        String Password = TextFieldPassword.getText();
        int id = 0;
 
-       User User = new User(Username, Password, lastName, firstName, id, birthday);
-       return User;
+       return new User(Username, Password, lastName, firstName, id, birthday);
    }
 
    private User FillUserUpdate(User update) {
@@ -58,11 +57,10 @@ public class EditUserController {
        String Lastname = TextFieldLastName.getText();
        LocalDate birthdate = DatePickerBirthdate.getValue();
 
-       User User = update;
        update.setFirstName(FirstName);
        update.setLastName(Lastname);
        update.setBirthdate(birthdate);
-       return User;
+       return update;
    }
 
    private void FillFields(User user) {
@@ -117,7 +115,7 @@ public class EditUserController {
    }
 
    public void Submit() throws IOException {
-       if (Edit == true) {
+       if (Edit) {
            if (ValiDateFields()) {
                System.out.println("submit " + userToEdit.getFirstName());
                // make udpdate in logic layer
@@ -131,7 +129,7 @@ public class EditUserController {
                }
            }
        }
-       if (Edit == false) {
+       if (!Edit) {
            // FillUserCreate();
            if (ValiDateFields()) {
                User newUser = FillUserCreate();

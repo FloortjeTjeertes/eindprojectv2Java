@@ -22,7 +22,7 @@ import javafx.scene.text.Text;
 
 
 public class LendRecieveController {
-    DataBase dataBase = Main.dataBase;
+    final DataBase dataBase = Main.dataBase;
     @FXML AnchorPane LendRecievePane;
 
     @FXML TextField TextFieldItemCode;
@@ -48,7 +48,7 @@ public class LendRecieveController {
     protected ItemLogic itemLogic;
     
 
-    UserSesion userSesion = UserSesion.GetInstance();
+    final UserSesion userSesion = UserSesion.GetInstance();
 
     @FXML public void initialize(){
         String message ="test";

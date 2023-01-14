@@ -37,7 +37,7 @@ public class MemberController {
    @FXML
    Text TextErrormessage;
 
-   UserLogic userLogic = new UserLogic();
+   final UserLogic userLogic = new UserLogic();
    List<User> users = userLogic.GetUsers();
    User selectedUser = null;
 

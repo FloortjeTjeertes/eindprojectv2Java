@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ItemLogic {
-    DataBase dataBase;
+    final DataBase dataBase;
     public ItemLogic(DataBase dataBase){
         this.dataBase = dataBase;
     }
@@ -72,14 +72,12 @@ public class ItemLogic {
         return updateditem;
     }
     public List<Item> GetItems(){
-        List<Item> items = Main.dataBase.GetItem();
-        return items;
+        return Main.dataBase.GetItem();
 
     }
     public List<Item> GetItems(Item filterItem){
-        List<Item> items = Main.dataBase.GetItem(filterItem);
 
-        return items;
+        return Main.dataBase.GetItem(filterItem);
     }
     public boolean CheckAvailableId(int id){
         List<Item> items = GetItems();

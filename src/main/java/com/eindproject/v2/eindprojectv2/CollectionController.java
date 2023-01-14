@@ -48,7 +48,7 @@ public class CollectionController {
    static Item item = null;
    ItemLogic itemLogic = null;
 
-   DataBase dataBase = Main.dataBase;
+   final DataBase dataBase = Main.dataBase;
    @FXML
    public void initialize() {
 

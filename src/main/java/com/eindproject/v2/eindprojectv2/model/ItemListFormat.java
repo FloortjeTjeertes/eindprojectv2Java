@@ -10,12 +10,12 @@ public class ItemListFormat {
         return item;
     }
 
-    public double itemCode;
-    public Lendstatus lendstatus;
-    public String titel;
-    public String auteur;
-    public LocalDateTime lendDate;
-    public double isbn;
+    public final double itemCode;
+    public final Lendstatus lendstatus;
+    public final String titel;
+    public final String auteur;
+    public final LocalDateTime lendDate;
+    public final double isbn;
     public ItemListFormat(Item item) {
         this.item = item;
         Book book = (Book)item;

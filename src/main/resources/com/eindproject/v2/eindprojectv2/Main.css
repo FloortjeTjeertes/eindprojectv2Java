@@ -19,27 +19,27 @@
 -fx-padding: 0.0em; 
 }
 
-.tab 
+.tab
 {
 
 -fx-background-insets: 0, 1, 2;
--fx-padding: 0.083333em 0.5em 0.083333em 0.5em; 
+-fx-padding: 0.083333em 0.5em 0.083333em 0.5em;
 -fx-background-color: grey;
 
 }
 
 
-.tab:hover 
+.tab:hover
 {
 -fx-color: -fx-hover-base;
 }
-.tab:selected 
+.tab:selected
 {
 -fx-background-color: lightgray;
 -fx-background-insets: 0, 1 1 0 1;
 -fx-background-radius: 5 5 0 0, 4 4 0 0;
 }
-.tab:disabled 
+.tab:disabled
 {
 -fx-opacity: -fx-disabled-opacity;
 }

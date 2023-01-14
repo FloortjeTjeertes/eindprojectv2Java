@@ -6,7 +6,7 @@ import java.io.*;
 
 
 public class DbLogic {
-    File localDb = new File("database.db");
+    final File localDb = new File("database.db");
     public void SaveDB(DataBase dataBase) throws IOException {
         try(FileOutputStream FileoutputStream = new FileOutputStream(localDb))
         {

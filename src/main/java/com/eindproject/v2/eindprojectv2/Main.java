@@ -18,7 +18,7 @@ public class Main extends Application {
 
         private static Scene scene;
         public static DataBase dataBase;
-        private DbLogic dbLogic = new DbLogic();
+        private final DbLogic dbLogic = new DbLogic();
         @Override
         public void start(Stage stage) throws IOException {
             try{

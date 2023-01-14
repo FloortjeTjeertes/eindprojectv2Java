@@ -3,25 +3,20 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 
-<TabPane fx:id="Tabs" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@Main.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.eindproject.v2.eindprojectv2.MainController">
-  <tabs>
+<TabPane  maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+         prefHeight="400.0" prefWidth="600.0" stylesheets="@Main.css" tabClosingPolicy="UNAVAILABLE"
+         xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+         fx:controller="com.eindproject.v2.eindprojectv2.MainController">
     <Tab text="Lending/recieving">
-      <content>
-          <fx:include fx:id="LendRecieveTab" source="LendRecieve.fxml" />
-      </content>
+        <fx:include  source="LendRecieve.fxml"/>
     </Tab>
     <Tab onSelectionChanged="#update" text="collection">
-      <content>
-         <fx:include fx:id="CollectionTab" source="Collection.fxml" />
+        <fx:include source="Collection.fxml"/>
 
-            </content>
     </Tab>
     <Tab text="Members">
-        <content>
-            <fx:include fx:id="MembersTab" source="User.fxml" />
+        <fx:include  source="User.fxml"/>
 
-              </content>
     </Tab>
-     
-        </tabs>
+
 </TabPane>

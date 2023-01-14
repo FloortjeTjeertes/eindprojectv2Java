@@ -3,8 +3,8 @@ package com.eindproject.v2.eindprojectv2.model;
 import java.io.Serializable;
 
 public class Author implements Serializable {
-    String firstname;
-    String lastname;
+    final String firstname;
+    final String lastname;
     String prefix = null;
 
 

@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import com.eindproject.v2.eindprojectv2.logic.ItemLogic;
 import com.eindproject.v2.eindprojectv2.model.Author;
 import com.eindproject.v2.eindprojectv2.model.Book;
-import com.eindproject.v2.eindprojectv2.model.Lendstatus;
+import com.eindproject.v2.eindprojectv2.model.LendStatus;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -25,14 +25,13 @@ public class EditbookController {
    TextField TextBoxPrefix;
    @FXML
    TextField TextBoxLastName;
-   @FXML
-   Text TextErrorMessage;
+    @FXML
+    Text TextErrorMessage;
 
-
-   static public boolean Edit  = false; //status of screen. true means the screen is used to edit an item  false means it is used to create a new item.
+    static public boolean Edit  = false; //status of screen. true means the screen is used to edit an item  false means it is used to create a new item.
    static public Book itemToEdit;
    final ItemLogic itemLogic = new ItemLogic(Main.dataBase);
-
+    public int id = 0;
    @FXML
    public void initialize() {
        if (Edit) {
@@ -54,7 +53,7 @@ public class EditbookController {
        int id =0;
 
 
-       return new Book(id, null, LocalDateTime.MIN, Lendstatus.No, isbn, author, titel);
+       return new Book(id, null, LocalDateTime.MIN, LendStatus.No, isbn, author, titel);
    }
 
    private Book FillBookUpdate(Book update) {
@@ -73,23 +72,21 @@ public class EditbookController {
    private void FillFields(Book book) {
        TextFieldIsbn.setText(Long.toString(book.getIsbn()));
        TextFieldTitel.setText(book.getTitle());
-       TextBoxFirstName.setText(book.getAuteur().getFirstName());
-       TextBoxPrefix.setText(book.getAuteur().getPrefix());
-       TextBoxLastName.setText(book.getAuteur().getLastName());
+       TextBoxFirstName.setText(book.getAuthor().getFirstName());
+       TextBoxPrefix.setText(book.getAuthor().getPrefix());
+       TextBoxLastName.setText(book.getAuthor().getLastName());
 
    }
 
-   private boolean ValiDateFields() {
-       Boolean validated = true;
+   private boolean ValidateFields() {
+       boolean validated = true;
        if (TextFieldIsbn.getText() == "") {
            TextFieldIsbn.setStyle("-fx-border-color:red");
-
            validated = false;
        } else {
            try {
                Long.parseLong(TextFieldIsbn.getText());
                TextFieldIsbn.setStyle("-fx-border-color:grey");
-
            }
            catch(Exception e){
                TextFieldIsbn.setStyle("-fx-border-color:red");
@@ -101,12 +98,10 @@ public class EditbookController {
            validated = false;
        } else {
            TextFieldTitel.setStyle("-fx-border-color:grey");
-
        }
        if (TextBoxFirstName.getText() == "") {
            TextBoxFirstName.setStyle("-fx-border-color:red");
            validated = false;
-
        } else {
            TextBoxFirstName.setStyle("-fx-border-color:grey");
        }
@@ -118,9 +113,7 @@ public class EditbookController {
            TextBoxLastName.setStyle("-fx-border-color:grey");
        }
        if (TextBoxPrefix.getText() == "") {
-
            TextBoxPrefix.setStyle("-fx-border-color:red");
-
            validated = false;
 
        } else {
@@ -132,10 +125,11 @@ public class EditbookController {
 
    public void Submit() {
        if (Edit) {
-           if (ValiDateFields()) {
+           if (ValidateFields()) {
                System.out.println("submit " + itemToEdit.getTitle());
 
                try {
+                   itemToEdit.setItemCode(id);
                    Book update = FillBookUpdate(itemToEdit);
                    itemLogic.Update(update);
                    Main.setRoot("Main");
@@ -147,7 +141,7 @@ public class EditbookController {
        }
        if (!Edit) {
            // FillBookCreate();
-           if (ValiDateFields()) {
+           if (ValidateFields()) {
           Book newBook =FillBookCreate();
            try {
                itemLogic.AddItem(newBook);
@@ -156,7 +150,7 @@ public class EditbookController {
            } catch (IOException e) {
                TextErrorMessage.setText(e.getMessage());
            }
-           System.out.println("edit " + ValiDateFields());
+           System.out.println("edit " + ValidateFields());
            }
 
        }

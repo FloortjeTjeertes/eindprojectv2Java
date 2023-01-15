@@ -9,18 +9,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataBase implements Serializable {
+
+    final List<Member> memberDatabase = new ArrayList<Member>();
+
     final List<User> userDatabase = new ArrayList<User>();
     final List<Item> itemDatabase = new ArrayList<Item>();
     public DataBase() {
-        AddUser(new User("floortje","test","Tjeertes","Floortje",0, LocalDate.now().plusDays(1))); //add user
-        AddUser(new User("henkie","abcd123","geritsen","henk",1, LocalDate.now().plusDays(2))); //add user
+
+
+        AddMember(new Member("Tjeertes","Floortje",0, LocalDate.now().plusDays(1))); //add user
+        AddMember(new Member("geritsen","henk",1, LocalDate.now().plusDays(2))); //add user
+
         AddUser(new User("User","StraightA","maan","gerard",2, LocalDate.now().plusDays(3))); //add user
 
-         Author henk = new Author("hank","garry","");
+        Author henk = new Author("hank","garry","");
          Author author2 = new Author("henk","en","van");
 
-        AddItem(new Book(0,userDatabase.get(0), LocalDateTime.now().plusDays(1), Lendstatus.No,9789027439642L,henk,"Boek1"));
-        AddItem(new Book(1,userDatabase.get(1), LocalDateTime.now().plusDays(2), Lendstatus.Yes,123456789010L,author2,"Boek2"));
+        AddItem(new Book(0,userDatabase.get(0), LocalDateTime.now().plusDays(1), LendStatus.No,9789027439642L,henk,"Boek1"));
+        AddItem(new Book(1,userDatabase.get(0), LocalDateTime.now().plusDays(2), LendStatus.Yes,123456789010L,author2,"Boek2"));
 
     }
 //    adds user to array of users
@@ -28,30 +34,12 @@ public class DataBase implements Serializable {
         userDatabase.add(user);
     }
 
-    public List<User> GetUsers(User userToCheck ){
-        List<User> users = new ArrayList<User>();
-        for (User user : userDatabase) {
-            if(user.equals(userToCheck)){
-                users.add(user);
-            }
-        }
-        return users;
-    }
     public List<User> GetUsers(){
        return this.userDatabase;
 
     }
-    public void DeleteUser(User userToDelete){
-        userDatabase.remove(userToDelete);
-    }
-    public void UpdateUser(User user){
 
-        for (int i=0; i < userDatabase.size(); i++) {
-            if(userDatabase.get(i).getId()==user.getId()){
-                userDatabase.set(i,user);
-            }
-        }
-    }
+
 
     public void AddItem(Item item){
         this.itemDatabase.add(item);
@@ -80,5 +68,39 @@ public class DataBase implements Serializable {
     }
     public void  DeleteItem(Item item){
         itemDatabase.remove(item);
+    }
+
+    public void AddMember(Member member){
+        memberDatabase.add(member);
+    }
+    public List<Member> GetMembers(){
+        return this.memberDatabase;
+
+    }
+    public List<Member> GetMember(Member memberToUpdate){
+
+        List<Member> members = new ArrayList<Member>();
+        for (Member member : this.memberDatabase) {
+            if(member.equals(memberToUpdate)){
+                members.add(member);
+            }
+        }
+        return members;
+
+
+    }
+
+    public void UpdateMember(Member member){
+
+        for (int i=0; i < memberDatabase.size(); i++) {
+            if(memberDatabase.get(i).getId()==member.getId()){
+                memberDatabase.set(i,member);
+            }
+        }
+    }
+
+    public void DeleteMember(Member memberToDelete) {
+        memberDatabase.remove(memberToDelete);
+
     }
 }

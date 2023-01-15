@@ -6,9 +6,9 @@ import java.time.LocalDateTime;
 
 public class Item implements Serializable {
     private int itemCode;
-    private User lender; 
+    private User lender;
     private LocalDateTime lendDate;
-    private Lendstatus lendstatus;
+    private LendStatus lendstatus;
     public int getItemCode() {
         return this.itemCode;
     }
@@ -27,13 +27,13 @@ public class Item implements Serializable {
     public void setLendDate(LocalDateTime lendDate) {
         this.lendDate = lendDate;
     }
-    public Lendstatus getLendstatus() {
+    public LendStatus getLendstatus() {
         return this.lendstatus;
     }
-    public void setLendstatus(Lendstatus lendstatus) {
+    public void setLendstatus(LendStatus lendstatus) {
         this.lendstatus = lendstatus;
     }
-    public Item(int itemCode, User lender, LocalDateTime lendDate, Lendstatus lendstatus) {
+    public Item(int itemCode, User lender, LocalDateTime lendDate, LendStatus lendstatus) {
         this.itemCode = itemCode;
         this.lender = lender;
         this.lendDate = lendDate;

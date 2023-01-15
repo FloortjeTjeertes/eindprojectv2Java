@@ -22,7 +22,7 @@ public class LoginController {
 
 
 
-        if(login.validateLogin(textFieldUserName.getText(),textFieldPassword.getText(), dataBase)){
+        if(login.validateLogin(textFieldUserName.getText(),textFieldPassword.getText())){
             System.out.println("work");
             Main.setRoot("Main");
 

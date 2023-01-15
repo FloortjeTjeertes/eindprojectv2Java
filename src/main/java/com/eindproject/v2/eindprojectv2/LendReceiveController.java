@@ -8,7 +8,7 @@ import java.time.temporal.ChronoUnit;
 import com.eindproject.v2.eindprojectv2.dal.DataBase;
 import com.eindproject.v2.eindprojectv2.logic.ItemLogic;
 import com.eindproject.v2.eindprojectv2.model.Book;
-import com.eindproject.v2.eindprojectv2.model.UserSesion;
+import com.eindproject.v2.eindprojectv2.model.UserSession;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -21,19 +21,19 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 
-public class LendRecieveController {
+public class LendReceiveController {
     final DataBase dataBase = Main.dataBase;
-    @FXML AnchorPane LendRecievePane;
+    @FXML AnchorPane LendReceivePane;
 
     @FXML TextField TextFieldItemCode;
 
     @FXML TextField TextFieldMemberIdentifier;
 
-    @FXML TextField TextFieldItemCodeRecieve;
+    @FXML TextField TextFieldItemCodeReceive;
 
     @FXML Button ButtonLendItem;
 
-    @FXML Button ButtonRecieveItem;
+    @FXML Button ButtonReceiveItem;
 
     @FXML VBox VboxPannel1;
 
@@ -41,20 +41,20 @@ public class LendRecieveController {
 
     @FXML Text textboxErrorMessage;
 
-    @FXML Text textboxErrorMessageRecieve;
+    @FXML Text textboxErrorMessageReceive;
 
     @FXML Label LabelWelcome;
 
     protected ItemLogic itemLogic;
     
 
-    final UserSesion userSesion = UserSesion.GetInstance();
+    final UserSession userSession = UserSession.GetInstance();
 
     @FXML public void initialize(){
         String message ="test";
         try {
-            UserSesion userSesion = UserSesion.GetInstance();
-            message = userSesion.getUser().GetFullName();
+            UserSession userSession = UserSession.GetInstance();
+            message = userSession.getUser().GetFullName();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -65,54 +65,54 @@ public class LendRecieveController {
          itemLogic = new ItemLogic(dataBase);
     }
    
-    @FXML public void RecieveItem(){
+    @FXML public void ReceiveItem(){
         
         try {
-            int id = Integer.parseInt(TextFieldItemCodeRecieve.getText());
+            int id = Integer.parseInt(TextFieldItemCodeReceive.getText());
 
-            Book updateditem =(Book)itemLogic.RecieveItem(id);
+            Book updateditem =(Book)itemLogic.ReceiveItem(id);
             long days = Math.round(updateditem.getLendDate().until(LocalDateTime.now(), ChronoUnit.DAYS));
-            int daystoolate =(int) (days-21);
-            double fine = daystoolate*0.10;
+            int daysToLate =(int) (days-21);
+            double fine = daysToLate*0.10;
             DecimalFormat decimalFormat = new DecimalFormat("0.00");
             Button Pay = new Button("Pay Fine");
             EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    ButtonRecieveItem.setDisable(false);
+                    ButtonReceiveItem.setDisable(false);
                     VboxPannel2.getChildren().remove(Pay);
                     textboxErrorMessage.setText("");
                 }
             };
             Pay.setOnAction(event);
             if(days>=21){
-                textboxErrorMessageRecieve.setText("boek:"+updateditem.getTitle()+"has been handed in "+daystoolate+" days too late\n"+
+                textboxErrorMessageReceive.setText("book:"+updateditem.getTitle()+"has been handed in "+daysToLate+" days too late\n"+
                 "Total fine : € "+decimalFormat.format(fine));
-                ButtonRecieveItem.setDisable(true);
+                ButtonReceiveItem.setDisable(true);
                 VboxPannel2.getChildren().add(Pay);
 
             }else{
-            textboxErrorMessageRecieve.setText("boek:"+updateditem.getTitle()+"has been handed in");
+            textboxErrorMessageReceive.setText("book:"+updateditem.getTitle()+"has been handed in");
             }
 
         } catch (Exception e) {
-            // TODO: handle exception
-            textboxErrorMessageRecieve.setText(e.getMessage());
+            textboxErrorMessageReceive.setText("The item code you filled in is not correct please try again. ");
 
         }
     }
 
    @FXML public void LoanItems(){
 
-
     try {
         int id = Integer.parseInt(TextFieldItemCode.getText());
-        Book updateditem =(Book)itemLogic.LoanItem(id,userSesion.getUser());
-        textboxErrorMessage.setText("boek:"+updateditem.getTitle()+" is gereserveerd");
+        Book updatedItem =(Book)itemLogic.LoanItem(id, userSession.getUser());
+        textboxErrorMessage.setText("book:"+updatedItem.getTitle()+" is reserved");
 
+    } catch (NumberFormatException e) {
+
+        textboxErrorMessage.setText("The id for the item you filled in is not a valid number try again.");
     } catch (Exception e) {
-
-        textboxErrorMessage.setText(e.getMessage());
+        textboxErrorMessage.setText("The id of the member is not correct please try again.");
     }
 
 

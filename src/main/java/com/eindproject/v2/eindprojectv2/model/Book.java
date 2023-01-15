@@ -9,7 +9,7 @@ public class Book extends Item{
     private final String title;
     
 
-    public Book(int itemCode, User lender, LocalDateTime lendDate, Lendstatus lendstatus, long isbn2, Author author,
+    public Book(int itemCode, User lender, LocalDateTime lendDate, LendStatus lendstatus, long isbn2, Author author,
                 String title) {
         super(itemCode, lender, lendDate, lendstatus);
         this.isbn = isbn2;
@@ -23,7 +23,7 @@ public class Book extends Item{
     }
 
 
-    public Author getAuteur() {
+    public Author getAuthor() {
         return author;
     }
 

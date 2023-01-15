@@ -3,15 +3,16 @@ package com.eindproject.v2.eindprojectv2;
 import java.io.IOException;
 import java.time.LocalDate;
 
-import com.eindproject.v2.eindprojectv2.logic.UserLogic;
-import com.eindproject.v2.eindprojectv2.model.User;
+import com.eindproject.v2.eindprojectv2.logic.MemberLogic;
+import com.eindproject.v2.eindprojectv2.model.Member;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
-public class EditUserController {
+public class EditMemberController {
 
 
    @FXML
@@ -20,39 +21,46 @@ public class EditUserController {
    TextField TextFieldFirstName;
    @FXML
    DatePicker DatePickerBirthdate;
-   @FXML
-   TextField TextFieldUserName;
-   @FXML
-   TextField TextFieldPassword;
+
    @FXML
    Text TextErrorMessage;
    static public Boolean Edit = false; //state of screen. true is edit-mode, false is create-mode
-   static public User userToEdit; //the user to edit
-   final UserLogic userLogic = new UserLogic();
+   static public Member memberToEdit; //the user to edit
+   final MemberLogic memberLogic = new MemberLogic();
 
-   @FXML
+    public static int id = 0;
+
+
+
+    @FXML
    public void initialize() {
        if (Edit) {
-           FillFields(userToEdit);
-           TextFieldUserName.setDisable(true);
-           TextFieldPassword.setDisable(true);
+           FillFields(memberToEdit);
+
        }
+        LocalDate minDate = LocalDate.now().minusYears(122);
+        LocalDate maxDate = LocalDate.now();
+        DatePickerBirthdate.setDayCellFactory(d ->
+                new DateCell() {
+                    @Override public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setDisable(item.isAfter(maxDate) || item.isBefore(minDate));
+                    }});
 
    }
 
-   private User FillUserCreate() {
+   private Member FillMemberCreate() {
        String firstName = TextFieldFirstName.getText();
        String lastName = TextFieldLastName.getText();
        LocalDate birthday = DatePickerBirthdate.getValue();
 
-       String Username = TextFieldUserName.getText();
-       String Password = TextFieldPassword.getText();
+
        int id = 0;
 
-       return new User(Username, Password, lastName, firstName, id, birthday);
+       return new Member(lastName, firstName, id, birthday);
    }
 
-   private User FillUserUpdate(User update) {
+   private Member FillMemberUpdate(Member update) {
        String FirstName = TextFieldFirstName.getText();
        String Lastname = TextFieldLastName.getText();
        LocalDate birthdate = DatePickerBirthdate.getValue();
@@ -63,17 +71,16 @@ public class EditUserController {
        return update;
    }
 
-   private void FillFields(User user) {
+   private void FillFields(Member member) {
 
-       TextFieldFirstName.setText(user.getFirstName());
-       TextFieldLastName.setText(user.getLastName());
-       DatePickerBirthdate.setValue(user.getBirthdate());
-       TextFieldUserName.setText(user.username);
-       TextFieldPassword.setText(user.Password);
+       TextFieldFirstName.setText(member.getFirstName());
+       TextFieldLastName.setText(member.getLastName());
+       DatePickerBirthdate.setValue(member.getBirthdate());
+
    }
 
-   private boolean ValiDateFields() {
-       Boolean validated = true;
+   private boolean ValidateFields() {
+       boolean validated = true;
 
        if (TextFieldFirstName.getText().equals("")) {
            TextFieldFirstName.setStyle("-fx-border-color:red");
@@ -96,32 +103,19 @@ public class EditUserController {
        } else {
            DatePickerBirthdate.setStyle("-fx-border-color:grey");
        }
-       if (TextFieldUserName.getText().equals("")) {
-           TextFieldUserName.setStyle("-fx-border-color:red");
-           validated = false;
 
-       } else {
-           TextFieldUserName.setStyle("-fx-border-color:grey");
-       }
-       if (TextFieldPassword.getText().equals("")) {
-           TextFieldPassword.setStyle("-fx-border-color:red");
-           validated = false;
-
-       } else {
-           TextFieldPassword.setStyle("-fx-border-color:grey");
-       }
 
        return validated;
    }
 
    public void Submit() {
        if (Edit) {
-           if (ValiDateFields()) {
-               System.out.println("submit " + userToEdit.getFirstName());
+           if (ValidateFields()) {
+               System.out.println("submit " + memberToEdit.getFirstName());
                // make udpdate in logic layer
                try {
-                   User update = FillUserUpdate(userToEdit);
-                   userLogic.Update(update);
+                   Member update = FillMemberUpdate(memberToEdit);
+                   memberLogic.Update(update);
                    Main.setRoot("Main");
 
                } catch (IOException e) {
@@ -131,16 +125,19 @@ public class EditUserController {
        }
        if (!Edit) {
            // FillUserCreate();
-           if (ValiDateFields()) {
-               User newUser = FillUserCreate();
+           if (ValidateFields()) {
+
+               Member newMember = FillMemberCreate();
+               newMember.setId(id+1);
+
                try {
-                   userLogic.AddUser(newUser);
+                   memberLogic.AddMember(newMember);
                    Main.setRoot("Main");
 
                } catch (IOException e) {
                    TextErrorMessage.setText(e.getMessage());
                }
-               System.out.println("edit " + ValiDateFields());
+               System.out.println("edit " + ValidateFields());
            }
        }
    }

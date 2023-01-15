@@ -22,7 +22,7 @@ public class Main extends Application {
                 dataBase = dbLogic.LoadDB();
             }
             catch (FileNotFoundException e){
-                System.out.println("Database whas not found creating new Database");
+                System.out.println("Database was not found creating new Database");
                 dataBase = new DataBase();
                 dbLogic.SaveDB(dataBase);
             } catch (ClassNotFoundException e) {

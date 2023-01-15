@@ -36,13 +36,13 @@
                 <Font size="26.0"/>
             </font>
         </Text>
-        <TableView fx:id="tableviewItems" onMouseClicked="#setSelectedRow" prefHeight="358.0" prefWidth="610.0"
+        <TableView fx:id="tableViewItems" onMouseClicked="#setSelectedRow" prefHeight="358.0" prefWidth="610.0"
                    GridPane.rowIndex="1">
             <columns>
-                <TableColumn fx:id="tablecolumnItemCode" prefWidth="75.0" text="Item code"/>
-                <TableColumn fx:id="tablecolumnAvailable" prefWidth="75.0" text="Loaned out"/>
-                <TableColumn fx:id="tablecolumnTitle" prefWidth="200.5" text="title"/>
-                <TableColumn fx:id="tablecolumnAuthor" minWidth="0.0" prefWidth="73.0" text="author"/>
+                <TableColumn fx:id="tableColumnItemCode" prefWidth="75.0" text="Item code"/>
+                <TableColumn fx:id="tableColumnAvailable" prefWidth="75.0" text="Loaned out"/>
+                <TableColumn fx:id="tableColumnTitle" prefWidth="200.5" text="title"/>
+                <TableColumn fx:id="tableColumnAuthor" minWidth="0.0" prefWidth="73.0" text="author"/>
                 <TableColumn fx:id="TableColumnDateLend" prefWidth="247.5" text="date lend"/>
             </columns>
             <GridPane.margin>

@@ -4,7 +4,6 @@ import com.eindproject.v2.eindprojectv2.Main;
 import com.eindproject.v2.eindprojectv2.dal.DataBase;
 import com.eindproject.v2.eindprojectv2.model.*;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +20,11 @@ public class ItemLogic {
         for (Item item : items) {
 
             if(item.getItemCode()==itemCode){
-                if(item.getLendstatus()==Lendstatus.Yes){
+                if(item.getLendstatus()== LendStatus.Yes){
                     throw new Exception("item is already lent out");
                 }
                 item.setLender(user);
-                item.setLendstatus(Lendstatus.Yes);
+                item.setLendstatus(LendStatus.Yes);
                 item.setLendDate(LocalDateTime.now());
                 updateditem =item;
                 update.add(item);
@@ -40,19 +39,19 @@ public class ItemLogic {
         return updateditem;
 
     }
-    public Item RecieveItem(int itemCode) throws Exception{
+    public Item ReceiveItem(int itemCode) throws Exception{
         List<Item>  items  = GetItems();
 
         List<Item> update = new ArrayList<Item>();
         Item updateditem=null;
         for (Item item : items) {
             if(item.getItemCode()==itemCode){
-                if(item.getLendstatus()==Lendstatus.No){
+                if(item.getLendstatus()== LendStatus.No){
                     throw new Exception("item is already handed in");
                 }
                 item.setLender(null);
                 // item.setLendDate(LocalDateTime.MIN);
-                item.setLendstatus(Lendstatus.No);
+                item.setLendstatus(LendStatus.No);
                 updateditem =item;
                 update.add(item);
                 break;

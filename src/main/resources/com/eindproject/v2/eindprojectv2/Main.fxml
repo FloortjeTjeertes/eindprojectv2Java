@@ -8,14 +8,14 @@
          xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
          fx:controller="com.eindproject.v2.eindprojectv2.MainController">
     <Tab text="Lending/recieving">
-        <fx:include  source="LendRecieve.fxml"/>
+        <fx:include  source="LendReceive.fxml"/>
     </Tab>
     <Tab onSelectionChanged="#update" text="collection">
         <fx:include fx:id="CollectionTab" source="Collection.fxml"/>
 
     </Tab>
     <Tab text="Members">
-        <fx:include fx:id="MembersTab" source="User.fxml"/>
+        <fx:include fx:id="MembersTab" source="Member.fxml"/>
 
     </Tab>
 

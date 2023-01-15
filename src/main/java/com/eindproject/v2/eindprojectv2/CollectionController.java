@@ -11,6 +11,7 @@ import com.eindproject.v2.eindprojectv2.model.Book;
 import com.eindproject.v2.eindprojectv2.model.Item;
 import com.eindproject.v2.eindprojectv2.model.ItemListFormat;
 
+import com.eindproject.v2.eindprojectv2.model.LendStatus;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -22,15 +23,15 @@ public class CollectionController {
 
 
    @FXML
-   TableView<ItemListFormat> tableviewItems;
+   TableView<ItemListFormat> tableViewItems;
    @FXML
-   TableColumn<ItemListFormat, Long> tablecolumnItemCode;
+   TableColumn<ItemListFormat, Integer> tableColumnItemCode;
    @FXML
-   TableColumn<ItemListFormat, String> tablecolumnAvailable;
+   TableColumn<ItemListFormat, LendStatus> tableColumnAvailable;
    @FXML
-   TableColumn<ItemListFormat, String> tablecolumnTitle;
+   TableColumn<ItemListFormat, String> tableColumnTitle;
    @FXML
-   TableColumn<ItemListFormat, String> tablecolumnAuthor;
+   TableColumn<ItemListFormat, String> tableColumnAuthor;
    @FXML
    TableColumn<ItemListFormat,LocalDateTime> TableColumnDateLend;
    // buttons
@@ -52,17 +53,17 @@ public class CollectionController {
    @FXML
    public void initialize() {
 
-       tablecolumnItemCode.setCellValueFactory(new PropertyValueFactory<>("itemCode"));
-       tablecolumnAvailable.setCellValueFactory(new PropertyValueFactory<>("lendstatus"));
-       tablecolumnTitle.setCellValueFactory(new PropertyValueFactory<>("titel"));
-       tablecolumnAuthor.setCellValueFactory(new PropertyValueFactory<>("auteur"));
+       tableColumnItemCode.setCellValueFactory(new PropertyValueFactory<>("itemCode"));
+       tableColumnAvailable.setCellValueFactory(new PropertyValueFactory<>("LendStatus"));
+       tableColumnTitle.setCellValueFactory(new PropertyValueFactory<>("titel"));
+       tableColumnAuthor.setCellValueFactory(new PropertyValueFactory<>("auteur"));
        TableColumnDateLend.setCellValueFactory(new PropertyValueFactory<>("lendDate"));
 
 
        itemLogic = new ItemLogic(dataBase);
         items = itemLogic.GetItems();
       try {
-          FillTableviews(tableviewItems);
+          FillTableviews(tableViewItems);
 
       }
       catch(Exception e) {
@@ -71,7 +72,7 @@ public class CollectionController {
    }
 
    public void RefreshTable(){
-       FillTableviews(tableviewItems);
+       FillTableviews(tableViewItems);
    }
 
    private void FillTableviews(TableView<ItemListFormat> tableView) {
@@ -86,11 +87,11 @@ public class CollectionController {
 
    @FXML
    public void setSelectedRow() {
-       int selectedIndex = tableviewItems.getSelectionModel().getSelectedIndex();
+       int selectedIndex = tableViewItems.getSelectionModel().getSelectedIndex();
        //test
        System.out.println(selectedIndex);
        //
-       ItemListFormat selected = tableviewItems.getSelectionModel().getSelectedItem();
+       ItemListFormat selected = tableViewItems.getSelectionModel().getSelectedItem();
        if(Objects.nonNull(selected)){
        item = selected.getItem();
 
@@ -107,13 +108,19 @@ public class CollectionController {
    public void deleteEvent() {
 
        try {
-           itemLogic.DeleteItem(item.getItemCode());
-           items = itemLogic.GetItems();
-           TextErrormessage.setText(((Book) item).getTitle() + " has succesfully been deleted");
+            if(item!=null) {
+                itemLogic.DeleteItem(item.getItemCode());
+                items = itemLogic.GetItems();
+                TextErrormessage.setText(((Book) item).getTitle() + " has succesfully been deleted");
 
-           FillTableviews(tableviewItems);
-       } catch (Exception e) {
-           TextErrormessage.setText(e.getMessage());
+                FillTableviews(tableViewItems);
+            }
+            else {
+                TextErrormessage.setText("no item selected");
+
+            }
+       } catch (NullPointerException e) {
+           TextErrormessage.setText("no item selected");
            e.printStackTrace();
        }
    }

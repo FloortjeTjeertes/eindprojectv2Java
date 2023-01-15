@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
-import com.eindproject.v2.eindprojectv2.logic.UserLogic;
-import com.eindproject.v2.eindprojectv2.model.User;
+import com.eindproject.v2.eindprojectv2.logic.MemberLogic;
+import com.eindproject.v2.eindprojectv2.model.Member;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -17,49 +17,49 @@ import javafx.scene.text.Text;
 
 public class MemberController {
    @FXML
-   TableView<User> tableviewUsers;
+   TableView<Member> tableviewMembers;
    @FXML
-   TableColumn<User, Integer> tablecolumnId;
+   TableColumn<Member, Integer> tablecolumnId;
    @FXML
-   TableColumn<User, String> tablecolumnFirstname;
+   TableColumn<Member, String> tablecolumnFirstname;
    @FXML
-   TableColumn<User, String> tablecolumnLast;
+   TableColumn<Member, String> tablecolumnLastName;
    @FXML
-   TableColumn<User, LocalDateTime> tablecolumnBirthdate;
+   TableColumn<Member, LocalDateTime> tablecolumnBirthdate;
 
    // buttons
    @FXML
    Button ButtonAdd;
    @FXML
-   Button ButtonEditUser;
+   Button ButtonEditMember;
    @FXML
-   Button ButtonDeleteUser;
+   Button ButtonDeleteMember;
    @FXML
    Text TextErrormessage;
 
-   final UserLogic userLogic = new UserLogic();
-   List<User> users = userLogic.GetUsers();
-   User selectedUser = null;
+   final MemberLogic memberLogic = new MemberLogic();
+   List<Member> members = memberLogic.GetMembers();
+   Member selectedMember = null;
 
    @FXML
    public void initialize() {
 
        tablecolumnId.setCellValueFactory(new PropertyValueFactory<>("Id"));
        tablecolumnFirstname.setCellValueFactory(new PropertyValueFactory<>("FirstName"));
-       tablecolumnLast.setCellValueFactory(new PropertyValueFactory<>("LastName"));
+       tablecolumnLastName.setCellValueFactory(new PropertyValueFactory<>("LastName"));
        tablecolumnBirthdate.setCellValueFactory(new PropertyValueFactory<>("birthdate"));
 
-       FillTableviews(tableviewUsers);
+       FillTableviews(tableviewMembers);
    }
 
    public void RefreshTable(){
-       FillTableviews(tableviewUsers);
+       FillTableviews(tableviewMembers);
    }
 
-   private void FillTableviews(TableView<User> tableviewUsers2) {
-       tableviewUsers2.getItems().clear();
-       for (User user : users) {
-           tableviewUsers2.getItems().add(user);
+   private void FillTableviews(TableView<Member> tableviewMember2) {
+       tableviewMember2.getItems().clear();
+       for (Member member : members) {
+           tableviewMember2.getItems().add(member);
 
        }
 
@@ -67,16 +67,16 @@ public class MemberController {
 
    @FXML
    public void setSelectedRow() {
-       int selectedIndex = tableviewUsers.getSelectionModel().getSelectedIndex();
+       int selectedIndex = tableviewMembers.getSelectionModel().getSelectedIndex();
        // test
        System.out.println(selectedIndex);
        //
-       User selected = tableviewUsers.getSelectionModel().getSelectedItem();
+       Member selected = tableviewMembers.getSelectionModel().getSelectedItem();
        if (Objects.nonNull(selected)) {
-           selectedUser = selected;
+           selectedMember = selected;
 
        } else {
-           selectedUser = null;
+           selectedMember = null;
 
        }
    }
@@ -85,11 +85,11 @@ public class MemberController {
    public void deleteEvent() {
 
        try {
-           userLogic.DeleteUser(selectedUser);
-           users = userLogic.GetUsers();
-           TextErrormessage.setText(selectedUser.getFirstName() + " has succesfully been deleted");
+           memberLogic.DeleteMember(selectedMember);
+           members = memberLogic.GetMembers();
+           TextErrormessage.setText(selectedMember.getFirstName() + " has succesfully been deleted");
 
-           FillTableviews(tableviewUsers);
+               FillTableviews(tableviewMembers);
        } catch (Exception e) {
            TextErrormessage.setText(e.getMessage());
            e.printStackTrace();
@@ -98,12 +98,12 @@ public class MemberController {
 
    @FXML
    public void editEvent() {
-       if (Objects.nonNull(selectedUser)) {
+       if (Objects.nonNull(selectedMember)) {
 
-           EditUserController.userToEdit = selectedUser;
-           EditUserController.Edit = true;
+           EditMemberController.memberToEdit = selectedMember;
+           EditMemberController.Edit = true;
            try {
-               Main.setRoot("User_Create_edit");
+               Main.setRoot("Member_Create_edit");
            } catch (IOException e) {
                TextErrormessage.setText(e.getMessage());
                e.printStackTrace();
@@ -117,10 +117,10 @@ public class MemberController {
    public void AddEvent() {
 
        try {
-
-           EditUserController.userToEdit = null;
-           EditUserController.Edit = false;
-           Main.setRoot("User_Create_edit");
+            EditMemberController.id = memberLogic.GetHighestId()+1;
+           EditMemberController.memberToEdit = null;
+           EditMemberController.Edit = false;
+           Main.setRoot("Member_Create_edit");
        } catch (IOException e) {
            // TODO Auto-generated catch block
            e.printStackTrace();

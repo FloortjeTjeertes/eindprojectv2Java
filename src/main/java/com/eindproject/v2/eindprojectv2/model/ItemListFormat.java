@@ -10,8 +10,8 @@ public class ItemListFormat {
         return item;
     }
 
-    public final double itemCode;
-    public final Lendstatus lendstatus;
+    public final int itemCode;
+    public final LendStatus lendStatus;
     public final String titel;
     public final String auteur;
     public final LocalDateTime lendDate;
@@ -20,17 +20,17 @@ public class ItemListFormat {
         this.item = item;
         Book book = (Book)item;
         this.itemCode = item.getItemCode();
-        this.lendstatus = item.getLendstatus();
+        this.lendStatus = item.getLendstatus();
         this.titel = book.getTitle();
-        this.auteur = book.getAuteur().lastname +" "+book.getAuteur().getFirstName()+" "+book.getAuteur().getPrefix();
+        this.auteur = book.getAuthor().lastname +" "+book.getAuthor().getFirstName()+" "+book.getAuthor().getPrefix();
         this.lendDate = item.getLendDate();
         this.isbn = book.getIsbn();
     }
-    public double getItemCode() {
+    public int getItemCode() {
         return itemCode;
     }
-    public Lendstatus getLendstatus() {
-        return lendstatus;
+    public LendStatus getLendStatus() {
+        return lendStatus;
     }
     public String getTitel() {
         return titel;
@@ -39,7 +39,7 @@ public class ItemListFormat {
         return auteur;
     }
     public LocalDateTime getLendDate() {
-        if(Objects.nonNull(lendDate) && lendstatus == Lendstatus.Yes ){
+        if(Objects.nonNull(lendDate) && lendStatus == LendStatus.Yes ){
         return lendDate.plus(3, ChronoUnit.WEEKS);
         }
         else return null;

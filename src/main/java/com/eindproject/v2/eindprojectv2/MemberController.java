@@ -85,10 +85,15 @@ public class MemberController {
    public void deleteEvent() {
 
        try {
-           memberLogic.DeleteMember(selectedMember);
-           members = memberLogic.GetMembers();
-           TextErrormessage.setText(selectedMember.getFirstName() + " has succesfully been deleted");
+           if(selectedMember !=null) {
+               memberLogic.DeleteMember(selectedMember);
+               members = memberLogic.GetMembers();
+               TextErrormessage.setText(selectedMember.getFirstName() + " has succesfully been deleted");
+           }
+           else {
+               TextErrormessage.setText("no item selected");
 
+           }
                FillTableviews(tableviewMembers);
        } catch (Exception e) {
            TextErrormessage.setText(e.getMessage());
